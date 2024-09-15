@@ -10,10 +10,140 @@
 </head>
 <body>
 
+    <header class="d-flex justify-content-between align-items-center p-3 bg-light">
+        <h1 class="h3">Controle de Contas de Água</h1>
+        <div>
+            <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#modalLoja">Cadastrar Loja</button>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalConta">Cadastrar Conta</button>
+        </div>
+    </header>
+    
+    <div class="container mt-4">
+        <table class="table table-striped table-responsive">
+            <thead class="table-dark">
+                <tr>
+                    <th>Fornecimento</th>
+                    <th>RGI</th>
+                    <th>Hidrometro</th>
+                    <th>Mês Ref</th>
+                    <th>Consumo (m³)</th>
+                    <th>Valor R$</th>
+                    <th>Data Vencimento</th>
+                    <th>Próxima Leitura</th>
+                    <th>Loja</th>
+                    <th>CNPJ</th>
+                    <th>Regional</th>
+                </tr>
+            </thead>
+            <tbody id="contasTableBody">
+            </tbody>
+        </table>
+    </div>
 
+    <div class="modal fade" id="modalLoja" tabindex="-1" aria-labelledby="modalLojaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLojaLabel">Cadastrar Loja</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formLoja">
+                        <div class="mb-3">
+                            <label for="nmLoja" class="form-label">Nome da Loja</label>
+                            <input type="text" class="form-control" id="nmLoja" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cnpj" class="form-label">CNPJ</label>
+                            <input type="text" class="form-control" id="cnpj" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="regional" class="form-label">Regional</label>
+                            <input type="text" class="form-control" id="regional" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="modalConta" tabindex="-1" aria-labelledby="modalContaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalContaLabel">Cadastrar Conta</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formConta">
+                        <!-- Select para escolher a Loja -->
+                        <div class="mb-3">
+                            <label for="lojaSelect" class="form-label">Loja</label>
+                            <select id="lojaSelect" class="form-select" required>
+                            </select>
+                        </div>
+    
+                        <!-- Campo para Fornecimento -->
+                        <div class="mb-3">
+                            <label for="fornecimento" class="form-label">Fornecimento</label>
+                            <input type="text" class="form-control" id="fornecimento" required>
+                        </div>
+    
+                        <!-- Campo para RGI -->
+                        <div class="mb-3">
+                            <label for="rgi" class="form-label">RGI</label>
+                            <input type="text" class="form-control" id="rgi" required>
+                        </div>
+    
+                        <!-- Campo para Hidrometro -->
+                        <div class="mb-3">
+                            <label for="hidrometro" class="form-label">Hidrômetro</label>
+                            <input type="text" class="form-control" id="hidrometro" required>
+                        </div>
+    
+                        <!-- Campo para Mês de Referência -->
+                        <div class="mb-3">
+                            <label for="mesRef" class="form-label">Mês de Referência</label>
+                            <input type="number" class="form-control" id="mesRef" placeholder="Ex: 202409 para setembro de 2024" required>
+                        </div>
+    
+                        <!-- Campo para Consumo em m³ -->
+                        <div class="mb-3">
+                            <label for="consumoM3" class="form-label">Consumo (m³)</label>
+                            <input type="number" class="form-control" id="consumoM3" required>
+                        </div>
+    
+                        <!-- Campo para Valor -->
+                        <div class="mb-3">
+                            <label for="valor" class="form-label">Valor (R$)</label>
+                            <input type="number" class="form-control" id="valor" step="0.01" required>
+                        </div>
+    
+                        <!-- Campo para Data de Vencimento -->
+                        <div class="mb-3">
+                            <label for="dtVencimento" class="form-label">Data de Vencimento</label>
+                            <input type="date" class="form-control" id="dtVencimento" required>
+                        </div>
+    
+                        <!-- Campo para Data da Próxima Leitura -->
+                        <div class="mb-3">
+                            <label for="dtProximaLeitura" class="form-label">Data da Próxima Leitura</label>
+                            <input type="date" class="form-control" id="dtProximaLeitura" required>
+                        </div>
+    
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+     
 
     <script src="lib/jquery-3.7.1.min.js"></script>
     <script src="lib/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/conta.js"></script>
+    <script src="js/loja.js"></script>
 </body>
 </html>
