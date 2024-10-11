@@ -28,8 +28,18 @@
                     <th>Mês Ref</th>
                     <th>Consumo (m³)</th>
                     <th>Valor R$</th>
-                    <th>Data Vencimento</th>
-                    <th>Próxima Leitura</th>
+                    <th>
+                        <div class="d-flex justify-content-between align-items-center">
+                            Data Vencimento
+                            <button id="sortVencimentoBtn" class="btn btn-sm btn-outline-light">⇅</button>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="d-flex justify-content-between align-items-center">
+                            Próxima Leitura
+                            <button id="sortDateBtn" class="btn btn-sm btn-outline-light">⇅</button>
+                        </div>
+                    </th>
                     <th>Loja</th>
                     <th>CNPJ</th>
                     <th>Regional</th>
@@ -48,18 +58,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formLoja">
+                    <form id="formLoja" class="needs-validation" novalidate>
                         <div class="mb-3">
                             <label for="nmLoja" class="form-label">Nome da Loja</label>
                             <input type="text" class="form-control" id="nmLoja" required>
+                            <div class="invalid-feedback">O nome da loja não pode ser vazio.</div>
                         </div>
                         <div class="mb-3">
                             <label for="cnpj" class="form-label">CNPJ</label>
                             <input type="text" class="form-control" id="cnpj" required>
+                            <div class="invalid-feedback">O CNPJ não pode ser vazio.</div>
                         </div>
                         <div class="mb-3">
                             <label for="regional" class="form-label">Regional</label>
-                            <input type="text" class="form-control" id="regional" required>
+                            <input type="text" class="form-control" id="regional" maxlength="4" required>
+                            <div class="invalid-feedback">
+                                A regional não pode ser vazia e deve ter no máximo 4 letras.
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>
                     </form>
@@ -76,7 +91,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="formConta">
+                    <form id="formConta" class="needs-validation" novalidate>
                         <!-- Select para escolher a Loja -->
                         <div class="mb-3">
                             <label for="lojaSelect" class="form-label">Loja</label>
@@ -88,48 +103,56 @@
                         <div class="mb-3">
                             <label for="fornecimento" class="form-label">Fornecimento</label>
                             <input type="text" class="form-control" id="fornecimento" required>
+                            <div class="invalid-feedback">O fornecimento é obrigatório.</div>
                         </div>
     
                         <!-- Campo para RGI -->
                         <div class="mb-3">
                             <label for="rgi" class="form-label">RGI</label>
                             <input type="text" class="form-control" id="rgi" required>
+                            <div class="invalid-feedback">O RGI é obrigatório.</div>
                         </div>
     
                         <!-- Campo para Hidrometro -->
                         <div class="mb-3">
                             <label for="hidrometro" class="form-label">Hidrômetro</label>
                             <input type="text" class="form-control" id="hidrometro" required>
+                            <div class="invalid-feedback">O hidrômetro é obrigatório.</div>
                         </div>
     
                         <!-- Campo para Mês de Referência -->
                         <div class="mb-3">
                             <label for="mesRef" class="form-label">Mês de Referência</label>
                             <input type="number" class="form-control" id="mesRef" placeholder="Ex: 202409 para setembro de 2024" required>
+                            <div class="invalid-feedback">O mês de referência é obrigatório.</div>
                         </div>
     
                         <!-- Campo para Consumo em m³ -->
                         <div class="mb-3">
                             <label for="consumoM3" class="form-label">Consumo (m³)</label>
                             <input type="number" class="form-control" id="consumoM3" required>
+                            <div class="invalid-feedback">O consumo é obrigatório.</div>
                         </div>
     
                         <!-- Campo para Valor -->
                         <div class="mb-3">
-                            <label for="valor" class="form-label">Valor (R$)</label>
-                            <input type="number" class="form-control" id="valor" step="0.01" required>
+                            <label for="valor" class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="valor" required>
+                            <div class="invalid-feedback">O valor é obrigatório.</div>
                         </div>
     
                         <!-- Campo para Data de Vencimento -->
                         <div class="mb-3">
                             <label for="dtVencimento" class="form-label">Data de Vencimento</label>
                             <input type="date" class="form-control" id="dtVencimento" required>
+                            <div class="invalid-feedback">A data de vencimento é obrigatória.</div>
                         </div>
     
                         <!-- Campo para Data da Próxima Leitura -->
                         <div class="mb-3">
                             <label for="dtProximaLeitura" class="form-label">Data da Próxima Leitura</label>
                             <input type="date" class="form-control" id="dtProximaLeitura" required>
+                            <div class="invalid-feedback">A data de próxima leitura é obrigatória.</div>
                         </div>
     
                         <button type="submit" class="btn btn-primary">Salvar</button>

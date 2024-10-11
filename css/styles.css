@@ -1,0 +1,7 @@
+th .d-flex {
+    white-space: nowrap;
+}
+
+th button {
+    margin-left: 8px;
+}
