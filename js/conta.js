@@ -8,12 +8,16 @@ function loadContas() {
             contasTableBody.empty();
             data.forEach(conta => {
                 const valorFormatado = formatarExibicaoValor(conta.valor);
-
-
                 const mesRefFormatado = conta.mesRef.toString().slice(-2);
-
+                
+                let rowClass = '';
+                if (conta.consumoM3 > 35) {
+                    rowClass = 'table-danger';
+                } else if (conta.consumoM3 > 25) {
+                    rowClass = 'table-warning';
+                }
                 const row = `
-                    <tr>
+                    <tr class="${rowClass}">
                         <td>${conta.fornecimento}</td>
                         <td>${conta.rgi}</td>
                         <td>${conta.hidrometro}</td>
