@@ -4,6 +4,7 @@ function loadContas() {
         url: 'http://localhost:3000/api/contas',
         method: 'GET',
         success: function(data) {
+            console.log("Dados recebidos da API:", data);
             const contasTableBody = $('#contasTableBody');
             contasTableBody.empty();
             data.forEach(conta => {
@@ -26,13 +27,24 @@ function loadContas() {
                         <td>${valorFormatado}</td>
                         <td>${new Date(conta.dtVencimento).toLocaleDateString()}</td>
                         <td>${new Date(conta.dtProximaLeitura).toLocaleDateString()}</td>
-                        <td>${conta.nmLoja}</td>
+                        <td>
+                            <button class="btn btn-link p-0 loja-btn" data-loja-cnpj="${conta.cnpj}" data-bs-toggle="modal" data-bs-target="#resumoModal">
+                                ${conta.nmLoja}
+                            </button>
+                        </td>
                         <td>${conta.cnpj}</td>
                         <td>${conta.regional}</td>
                     </tr>
                 `;
                 contasTableBody.append(row);
             });
+
+            $('.loja-btn').on('click', function () {
+                const lojaCnpj = $(this).data('loja-cnpj');
+                const lojaNome = $(this).text();
+                mostraResumo(lojaCnpj, lojaNome);
+            });
+
             $('#sortDateBtn').on('click', sortContasByReadingDate);
             $('#sortVencimentoBtn').on('click', sortContasByDueDate);
         },
@@ -270,3 +282,40 @@ function parseDate(dateString) {
     return new Date(year, month, day); 
 }
 // 
+
+// resumo anual
+function mostraResumo(lojaCnpj, lojaNome) {
+    console.log("lojaCnpj " + lojaCnpj)
+    const rows = $('#contasTableBody tr').toArray();
+    let totalConsumo = 0;
+    let totalValor = 0;
+
+    console.log("Loja clicada:", lojaCnpj, lojaNome);
+
+    rows.forEach(row => {
+        const cells = $(row).find('td');
+        const currentLojaCnpj = $(row).find('.loja-btn').data('loja-cnpj');
+
+        console.log("CNPJ da linha:", currentLojaCnpj);
+
+        if (currentLojaCnpj === lojaCnpj) {
+            console.log("Linha correspondente encontrada!");
+
+            const consumo = parseInt(cells.eq(4).text()) || 0; 
+            const valorTexto = cells.eq(5).text();
+            const valor = parseFloat(valorTexto.replace('R$', '').replace('.', '').replace(',', '.')) || 0;
+
+            console.log("Consumo:", consumo, "Valor:", valor);
+
+            totalConsumo += consumo;
+            totalValor += valor;
+        }
+    });
+
+    console.log("Consumo total:", totalConsumo, "Valor total:", totalValor);
+
+    $('#resumoModalLabel').text(`Resumo da Loja: ${lojaNome}`);
+    $('#consumoTotal').text(`${totalConsumo} m³`);
+    $('#valorTotal').text(`R$ ${totalValor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`);
+}
+
